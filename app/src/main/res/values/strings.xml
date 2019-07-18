@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">TechNewsSample</string>
+    <string name="app_name">Agoda News</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="full_story">Full Story</string>
+    <string name="details">Details</string>
 </resources>

@@ -3,9 +3,12 @@ package news.agoda.com.sample.view;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.RequestManager;
 import com.goweather.android_challenge.R;
@@ -32,9 +35,15 @@ public class DetailViewActivity extends DaggerAppCompatActivity {
             thisNewsEntity = getIntent().getParcelableExtra(NEWS_KEY);
             init(thisNewsEntity);
         }
+        
     }
     
     private void init(NewsEntity thisNewsEntity) {
+        setSupportActionBar((Toolbar) findViewById(R.id.details_toolbar_id));
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        
         ((TextView) findViewById(R.id.detail_title_id)).setText(thisNewsEntity.getTitle());
         ((TextView) findViewById(R.id.detail_summary_content_id)).setText(thisNewsEntity.getSummary());
         if (thisNewsEntity.getMediaEntity() != null && thisNewsEntity.getMediaEntity().size() > 0) {
@@ -48,5 +57,13 @@ public class DetailViewActivity extends DaggerAppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(thisNewsEntity.getArticleUrl()));
         startActivity(intent);
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

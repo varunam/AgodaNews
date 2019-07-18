@@ -8,17 +8,25 @@
     android:layout_height="match_parent"
     tools:context="news.agoda.com.sample.view.DetailViewActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/details_toolbar_id"
+        android:layout_width="match_parent"
+        android:theme="@style/toolbarTheme"
+        app:title="@string/details"
+        android:layout_height="?attr/actionBarSize"/>
+
     <TextView
         android:id="@+id/detail_title_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
+        android:fontFamily="@font/muli_extrabold"
         android:paddingStart="10dp"
+        android:paddingTop="10dp"
         android:paddingEnd="10dp"
         android:paddingBottom="10dp"
         android:textColor="#000000"
         android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/detail_news_image_id"
@@ -32,6 +40,7 @@
         android:id="@+id/detail_summary_content_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/muli"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:paddingBottom="10dp"/>
@@ -43,7 +52,8 @@
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:fontFamily="@font/muli_extrabold"
         android:onClick="onFullStoryClicked"
-        android:text="Full Story"/>
+        android:text="@string/full_story"/>
 
 </LinearLayout>

@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.goweather.android_challenge.R;
 
 import javax.inject.Inject;
@@ -38,7 +38,6 @@ public class MainActivity extends DaggerAppCompatActivity implements ClickedCall
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fresco.initialize(this);
         setContentView(R.layout.activity_main);
         
         init();
@@ -49,7 +48,9 @@ public class MainActivity extends DaggerAppCompatActivity implements ClickedCall
         MainViewModel mainViewModel = ViewModelProviders.of(this, providerFactory).get(MainViewModel.class);
         mainViewModel.fetchNews().observe(this, newsResponseObserver);
         
-        //views
+        //setting toolbar
+        setSupportActionBar((Toolbar) findViewById(R.id.main_toolbar_id));
+        
         //views
         RecyclerView newsRecyclerView = findViewById(R.id.news_rv_id);
         newsRecyclerView.setLayoutManager(new LinearLayoutManager(this));

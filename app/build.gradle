@@ -33,7 +33,6 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
 
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.facebook.fresco:fresco:0.10.0'
 
     // Dagger
     def dagger_version = "2.22"
@@ -70,4 +69,5 @@ dependencies {
     def glideVersion = "4.9.0"
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
+    implementation 'androidx.cardview:cardview:1.0.0'
 }
