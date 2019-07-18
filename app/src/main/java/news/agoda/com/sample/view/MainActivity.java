@@ -1,11 +1,8 @@
 package news.agoda.com.sample.view;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
@@ -22,11 +19,14 @@ import dagger.android.support.DaggerAppCompatActivity;
 import news.agoda.com.sample.di.viewmodel.ViewModelsProviderFactory;
 import news.agoda.com.sample.model.NewsEntity;
 import news.agoda.com.sample.model.NewsResponse;
+import news.agoda.com.sample.utils.DialogButtonListener;
+import news.agoda.com.sample.utils.DialogUtils;
 import news.agoda.com.sample.utils.NetworkUtils;
 import news.agoda.com.sample.viewmodel.MainViewModel;
 
-public class MainActivity extends DaggerAppCompatActivity implements ClickedCallback {
+public class MainActivity extends DaggerAppCompatActivity implements ClickedCallback, DialogButtonListener {
     
+    private static final int INTERNET_ERROR_REQ_CODE = 1212;
     //adapter
     private NewsAdapter newsAdapter;
     
@@ -82,26 +82,16 @@ public class MainActivity extends DaggerAppCompatActivity implements ClickedCall
     }
     
     private void showNetworkNotAvailableError() {
-        new AlertDialog.Builder(this)
-                .setTitle(getResources().getString(R.string.internet_error))
-                .setMessage(getResources().getString(R.string.internet_error_message))
-                .setPositiveButton(getResources().getString(R.string.retry), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        checkInternetAndInitiate();
-                    }
-                })
-                .setNegativeButton(getResources().getString(R.string.exit_app), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.good_bye), Toast.LENGTH_LONG).show();
-                        finish();
-                    }
-                })
-                .setCancelable(false)
-                .setIcon(R.drawable.ic_error)
-                .create()
-                .show();
+        DialogUtils.createDialog(
+                this,
+                getResources().getString(R.string.internet_error),
+                getResources().getString(R.string.internet_error_message),
+                getResources().getString(R.string.retry),
+                getResources().getString(R.string.exit_app),
+                R.drawable.ic_error,
+                INTERNET_ERROR_REQ_CODE,
+                this
+        ).show();
     }
     
     private Observer<NewsResponse> newsResponseObserver = new Observer<NewsResponse>() {
@@ -136,5 +126,19 @@ public class MainActivity extends DaggerAppCompatActivity implements ClickedCall
         Intent intent = new Intent(this, DetailViewActivity.class);
         intent.putExtra(DetailViewActivity.NEWS_KEY, clickedNews);
         startActivity(intent);
+    }
+    
+    @Override
+    public void onDialogPositiveButtonClicked(int reqCode) {
+        if (reqCode == INTERNET_ERROR_REQ_CODE) {
+            checkInternetAndInitiate();
+        }
+    }
+    
+    @Override
+    public void onDialogNegativeButtonClicked(int reqCode) {
+        if (reqCode == INTERNET_ERROR_REQ_CODE) {
+            finish();
+        }
     }
 }
