@@ -4,4 +4,9 @@
     <string name="action_settings">Settings</string>
     <string name="full_story">Full Story</string>
     <string name="details">Details</string>
+    <string name="internet_error">Internet error</string>
+    <string name="internet_error_message">Looks like you are not connected to the Internet. Please check?</string>
+    <string name="retry">Retry</string>
+    <string name="exit_app">Exit App</string>
+    <string name="good_bye">Good Bye!</string>
 </resources>

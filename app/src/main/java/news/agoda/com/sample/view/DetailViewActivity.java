@@ -46,7 +46,7 @@ public class DetailViewActivity extends DaggerAppCompatActivity {
         
         ((TextView) findViewById(R.id.detail_title_id)).setText(thisNewsEntity.getTitle());
         ((TextView) findViewById(R.id.detail_summary_content_id)).setText(thisNewsEntity.getSummary());
-        if (thisNewsEntity.getMediaEntity() != null && thisNewsEntity.getMediaEntity().size() > 0) {
+        if (thisNewsEntity.getMediaEntity() != null && thisNewsEntity.getMediaEntity().size()> 0) {
             glide.load(thisNewsEntity.getMediaEntity().get(0).getUrl())
                     .placeholder(R.drawable.place_holder)
                     .into(((ImageView) findViewById(R.id.detail_news_image_id)));
