@@ -33,7 +33,7 @@ public class MediaEntity implements Parcelable {
         this.copyright = (String) getValue(map, "copyright");
     }
     
-    protected MediaEntity(Parcel in) {
+    private MediaEntity(Parcel in) {
         url = in.readString();
         format = in.readString();
         if (in.readByte() == 0) {

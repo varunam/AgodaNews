@@ -47,7 +47,7 @@ public class NewsEntity implements Parcelable {
         this.mediaEntities = mediaList;
     }
     
-    protected NewsEntity(Parcel in) {
+    private NewsEntity(Parcel in) {
         title = in.readString();
         summary = in.readString();
         articleUrl = in.readString();

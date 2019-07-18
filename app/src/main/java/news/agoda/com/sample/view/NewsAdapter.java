@@ -28,12 +28,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     private RequestManager glide;
     private ClickedCallback clickedCallback;
     
-    public NewsAdapter(RequestManager glide, ClickedCallback clickedCallback) {
+    NewsAdapter(RequestManager glide, ClickedCallback clickedCallback) {
         this.glide = glide;
         this.clickedCallback = clickedCallback;
     }
     
-    public void setNewsEntities(ArrayList<NewsEntity> newsEntities) {
+    void setNewsEntities(ArrayList<NewsEntity> newsEntities) {
         this.newsEntities = newsEntities;
         notifyDataSetChanged();
     }
@@ -73,11 +73,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         }
     }
     
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private ImageView thumbnail;
         
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             
             title = itemView.findViewById(R.id.news_title);
