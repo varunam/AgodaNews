@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="news.agoda.com.sample.view.DetailViewActivity">
+
+    <TextView
+        android:id="@+id/detail_title_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <ImageView
+        android:id="@+id/detail_news_image_id"
+        android:layout_width="210dp"
+        android:layout_height="140dp"
+        android:src="@drawable/place_holder"
+        android:layout_gravity="center"
+        android:paddingBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/detail_summary_content_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="10dp"/>
+
+
+    <Button
+        android:id="@+id/detail_full_story_link_id"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:onClick="onFullStoryClicked"
+        android:text="Full Story"/>
+
+</LinearLayout>

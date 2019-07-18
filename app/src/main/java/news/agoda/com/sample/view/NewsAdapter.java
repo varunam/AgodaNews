@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.goweather.android_challenge.R;
 
 import java.util.ArrayList;
@@ -24,6 +24,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     
     private static final String TAG = NewsAdapter.class.getSimpleName();
     private ArrayList<NewsEntity> newsEntities;
+    
+    private RequestManager glide;
+    private ClickedCallback clickedCallback;
+    
+    public NewsAdapter(RequestManager glide, ClickedCallback clickedCallback) {
+        this.glide = glide;
+        this.clickedCallback = clickedCallback;
+    }
     
     public void setNewsEntities(ArrayList<NewsEntity> newsEntities) {
         this.newsEntities = newsEntities;
@@ -39,16 +47,21 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        NewsEntity newsEntity = newsEntities.get(position);
+        final NewsEntity newsEntity = newsEntities.get(position);
         holder.title.setText(newsEntity.getTitle());
         if (newsEntity.getMediaEntity().size() > 0) {
             Log.d(TAG, "URL: " + newsEntity.getMediaEntity().get(0).getUrl());
-            Glide.with(holder.thumbnail.getContext())
-                    .load(newsEntity.getMediaEntity().get(0).getUrl())
+            glide.load(newsEntity.getMediaEntity().get(0).getUrl())
                     .placeholder(R.drawable.place_holder)
                     .dontAnimate()
                     .into(holder.thumbnail);
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickedCallback.onNewsItemClicked(newsEntity);
+            }
+        });
     }
     
     @Override

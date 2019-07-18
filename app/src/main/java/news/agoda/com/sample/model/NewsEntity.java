@@ -1,8 +1,11 @@
 package news.agoda.com.sample.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.internal.LinkedTreeMap;
 
@@ -12,7 +15,7 @@ import java.util.List;
 /**
  * This represents a news item
  */
-public class NewsEntity {
+public class NewsEntity implements Parcelable {
     private static final String TAG = NewsEntity.class.getSimpleName();
     
     @SerializedName("title")
@@ -43,6 +46,28 @@ public class NewsEntity {
         this.publishedDate = publishedDate;
         this.mediaEntities = mediaList;
     }
+    
+    protected NewsEntity(Parcel in) {
+        title = in.readString();
+        summary = in.readString();
+        articleUrl = in.readString();
+        byline = in.readString();
+        publishedDate = in.readString();
+        mediaEntityList = in.createTypedArrayList(MediaEntity.CREATOR);
+        mediaEntities = new Gson().fromJson(in.readString(), Object.class);
+    }
+    
+    public static final Creator<NewsEntity> CREATOR = new Creator<NewsEntity>() {
+        @Override
+        public NewsEntity createFromParcel(Parcel in) {
+            return new NewsEntity(in);
+        }
+        
+        @Override
+        public NewsEntity[] newArray(int size) {
+            return new NewsEntity[size];
+        }
+    };
     
     private ArrayList<MediaEntity> getMediaEntityListFromMap(Object mediaList) {
         Log.d(TAG, "mediaList");
@@ -83,5 +108,22 @@ public class NewsEntity {
     public List<MediaEntity> getMediaEntity() {
         mediaEntityList = getMediaEntityListFromMap(mediaEntities);
         return mediaEntityList;
+    }
+    
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+    
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        
+        dest.writeString(title);
+        dest.writeString(summary);
+        dest.writeString(articleUrl);
+        dest.writeString(byline);
+        dest.writeString(publishedDate);
+        dest.writeTypedList(mediaEntityList);
+        dest.writeString(new Gson().toJson(mediaEntities));
     }
 }
