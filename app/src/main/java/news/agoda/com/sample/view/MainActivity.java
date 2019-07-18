@@ -1,8 +1,8 @@
 package news.agoda.com.sample.view;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
@@ -23,10 +23,11 @@ import news.agoda.com.sample.viewmodel.MainViewModel;
 
 public class MainActivity extends DaggerAppCompatActivity implements ClickedCallback {
     
-    private static final String TAG = MainActivity.class.getSimpleName();
-    
     //adapter
     private NewsAdapter newsAdapter;
+    
+    //viewmodel
+    private MainViewModel mainViewModel;
     
     //Glide
     @Inject
@@ -34,6 +35,9 @@ public class MainActivity extends DaggerAppCompatActivity implements ClickedCall
     
     @Inject
     ViewModelsProviderFactory providerFactory;
+    
+    //view
+    private ProgressDialog progressDialog;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +49,16 @@ public class MainActivity extends DaggerAppCompatActivity implements ClickedCall
     
     private void init() {
         //viewmodel
-        MainViewModel mainViewModel = ViewModelProviders.of(this, providerFactory).get(MainViewModel.class);
+        mainViewModel = ViewModelProviders.of(this, providerFactory).get(MainViewModel.class);
         mainViewModel.fetchNews().observe(this, newsResponseObserver);
+        mainViewModel.observeLoader().observe(this, showLoaderObserver);
+        
         
         //setting toolbar
         setSupportActionBar((Toolbar) findViewById(R.id.main_toolbar_id));
         
         //views
+        progressDialog = new ProgressDialog(this);
         RecyclerView newsRecyclerView = findViewById(R.id.news_rv_id);
         newsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         newsAdapter = new NewsAdapter(glide, this);
@@ -61,10 +68,29 @@ public class MainActivity extends DaggerAppCompatActivity implements ClickedCall
     private Observer<NewsResponse> newsResponseObserver = new Observer<NewsResponse>() {
         @Override
         public void onChanged(NewsResponse newsResponse) {
-            Log.d(TAG, "response Received");
+            mainViewModel.observeLoader().postValue(false);
             newsAdapter.setNewsEntities(newsResponse.getResults());
         }
     };
+    
+    private Observer<Boolean> showLoaderObserver = new Observer<Boolean>() {
+        @Override
+        public void onChanged(Boolean aBoolean) {
+            showLoader(aBoolean);
+        }
+    };
+    
+    private void showLoader(Boolean aBoolean) {
+        if (aBoolean) {
+            progressDialog.setTitle("Loading...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+        } else {
+            if (progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+        }
+    }
     
     @Override
     public void onNewsItemClicked(NewsEntity clickedNews) {
