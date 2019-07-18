@@ -4,36 +4,36 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.goweather.android_challenge.R;
 
+import javax.inject.Inject;
+
+import dagger.android.support.DaggerAppCompatActivity;
+import news.agoda.com.sample.di.viewmodel.ViewModelsProviderFactory;
 import news.agoda.com.sample.model.NewsEntity;
 import news.agoda.com.sample.model.NewsResponse;
 import news.agoda.com.sample.viewmodel.MainViewModel;
 
-public class MainActivity extends AppCompatActivity implements ClickedCallback {
+public class MainActivity extends DaggerAppCompatActivity implements ClickedCallback {
     
     private static final String TAG = MainActivity.class.getSimpleName();
-    
-    //views
-    private RecyclerView newsRecyclerView;
     
     //adapter
     private NewsAdapter newsAdapter;
     
     //Glide
-    private RequestManager glide;
+    @Inject
+    RequestManager glide;
     
-    //viewmodel
-    private MainViewModel mainViewModel;
+    @Inject
+    ViewModelsProviderFactory providerFactory;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +45,13 @@ public class MainActivity extends AppCompatActivity implements ClickedCallback {
     }
     
     private void init() {
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        //viewmodel
+        MainViewModel mainViewModel = ViewModelProviders.of(this, providerFactory).get(MainViewModel.class);
         mainViewModel.fetchNews().observe(this, newsResponseObserver);
         
-        //glide
-        glide = Glide.with(this);
-        
         //views
-        newsRecyclerView = findViewById(R.id.news_rv_id);
+        //views
+        RecyclerView newsRecyclerView = findViewById(R.id.news_rv_id);
         newsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         newsAdapter = new NewsAdapter(glide, this);
         newsRecyclerView.setAdapter(newsAdapter);

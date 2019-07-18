@@ -11,6 +11,6 @@ import retrofit2.http.GET;
 public interface NewsApi {
     
     @GET("/bins/nl6jh")
-    public Flowable<NewsResponse> getNews();
+    Flowable<NewsResponse> getNews();
     
 }

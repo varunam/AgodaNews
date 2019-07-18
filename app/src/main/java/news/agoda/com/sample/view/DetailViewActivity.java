@@ -7,17 +7,21 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.goweather.android_challenge.R;
 
+import javax.inject.Inject;
+
+import dagger.android.support.DaggerAppCompatActivity;
 import news.agoda.com.sample.model.NewsEntity;
 
-public class DetailViewActivity extends AppCompatActivity {
+public class DetailViewActivity extends DaggerAppCompatActivity {
     
     public static final String NEWS_KEY = "news-key";
     public NewsEntity thisNewsEntity;
+    
+    @Inject
+    RequestManager glide;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +38,7 @@ public class DetailViewActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.detail_title_id)).setText(thisNewsEntity.getTitle());
         ((TextView) findViewById(R.id.detail_summary_content_id)).setText(thisNewsEntity.getSummary());
         if (thisNewsEntity.getMediaEntity() != null && thisNewsEntity.getMediaEntity().size() > 0) {
-            Glide.with(this)
-                    .load(thisNewsEntity.getMediaEntity().get(0).getUrl())
+            glide.load(thisNewsEntity.getMediaEntity().get(0).getUrl())
                     .placeholder(R.drawable.place_holder)
                     .into(((ImageView) findViewById(R.id.detail_news_image_id)));
         }
