@@ -22,7 +22,7 @@ public class MediaEntity implements Parcelable {
     private String caption;
     private String copyright;
     
-    MediaEntity(LinkedTreeMap<Object, Object> map) {
+    public MediaEntity(LinkedTreeMap<Object, Object> map) {
         this.url = (String) getValue(map, "url");
         this.format = (String) getValue(map, "format");
         this.height = (Double) getValue(map, "height");
@@ -31,6 +31,10 @@ public class MediaEntity implements Parcelable {
         this.subType = (String) getValue(map, "subtype");
         this.caption = (String) getValue(map, "caption");
         this.copyright = (String) getValue(map, "copyright");
+    }
+    
+    public MediaEntity(){
+    
     }
     
     private MediaEntity(Parcel in) {
@@ -129,5 +133,37 @@ public class MediaEntity implements Parcelable {
         dest.writeString(subType);
         dest.writeString(caption);
         dest.writeString(copyright);
+    }
+    
+    public void setUrl(String url) {
+        this.url = url;
+    }
+    
+    public void setFormat(String format) {
+        this.format = format;
+    }
+    
+    public void setHeight(Double height) {
+        this.height = height;
+    }
+    
+    public void setWidth(Double width) {
+        this.width = width;
+    }
+    
+    public void setType(String type) {
+        this.type = type;
+    }
+    
+    public void setSubType(String subType) {
+        this.subType = subType;
+    }
+    
+    public void setCaption(String caption) {
+        this.caption = caption;
+    }
+    
+    public void setCopyright(String copyright) {
+        this.copyright = copyright;
     }
 }
