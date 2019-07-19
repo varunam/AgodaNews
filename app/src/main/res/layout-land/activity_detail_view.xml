@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="news.agoda.com.sample.view.DetailViewActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/details_toolbar_id"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/toolbarTheme"
+        app:title="@string/details" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/details_toolbar_id"
+        android:layout_margin="10dp"
+        android:weightSum="2">
+
+        <ImageView
+            android:id="@+id/detail_news_image_id"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:padding="20dp"
+            android:src="@drawable/place_holder" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/detail_title_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/muli_extrabold"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="this is the title which I am writing intentionally." />
+
+            <TextView
+                android:id="@+id/detail_summary_content_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/muli"
+                android:textSize="17sp"
+                tools:text="this is description i am writing with intention to test how will it look with multiple lines of input." />
+
+            <Button
+                android:id="@+id/detail_full_story_link_id"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/muli_extrabold"
+                android:onClick="onFullStoryClicked"
+                android:paddingStart="50dp"
+                android:paddingEnd="50dp"
+                android:text="@string/read_full_story" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

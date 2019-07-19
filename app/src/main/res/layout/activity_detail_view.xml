@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="news.agoda.com.sample.view.DetailViewActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/details_toolbar_id"
         android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         android:theme="@style/toolbarTheme"
-        app:title="@string/details"
-        android:layout_height="?attr/actionBarSize"/>
+        app:title="@string/details" />
 
     <TextView
         android:id="@+id/detail_title_id"
@@ -24,6 +23,7 @@
         android:paddingTop="10dp"
         android:paddingEnd="10dp"
         android:paddingBottom="10dp"
+        android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -32,9 +32,10 @@
         android:id="@+id/detail_news_image_id"
         android:layout_width="210dp"
         android:layout_height="140dp"
-        android:src="@drawable/place_holder"
         android:layout_gravity="center"
-        android:paddingBottom="10dp"/>
+        android:layout_marginTop="10dp"
+        android:paddingBottom="10dp"
+        android:src="@drawable/place_holder" />
 
     <TextView
         android:id="@+id/detail_summary_content_id"
@@ -42,8 +43,10 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/muli"
         android:paddingStart="10dp"
+        android:layout_marginTop="10dp"
         android:paddingEnd="10dp"
-        android:paddingBottom="10dp"/>
+        android:paddingBottom="10dp"
+        android:textAlignment="center" />
 
 
     <Button
@@ -52,8 +55,9 @@
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/muli_extrabold"
         android:onClick="onFullStoryClicked"
-        android:text="@string/full_story"/>
+        android:text="@string/full_story" />
 
 </LinearLayout>
