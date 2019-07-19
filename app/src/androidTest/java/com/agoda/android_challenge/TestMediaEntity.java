@@ -1,4 +1,4 @@
-package com.goweather.android_challenge;
+package com.agoda.android_challenge;
 
 import com.google.gson.internal.LinkedTreeMap;
 
